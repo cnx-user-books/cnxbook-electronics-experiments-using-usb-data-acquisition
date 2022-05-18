@@ -1,0 +1,162 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>Microphone FFT Lab</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>94ba19d1-773d-4526-a623-6d25b39b3db7</md:uuid>
+</metadata>
+<content>
+<section id="id11492705">
+<title>Microphone FFT Using National Instruments Low Cost Data
+Acquisition</title>
+<section id="id11492100">
+<title>Introduction</title>
+<para id="id11487348">Whenever a sound is made, a pressure wave
+travels through a medium (such as air) and vibrates our eardrums.
+This same principle can be used to convert sound information into
+an electrical form so that the experimenters can visualize,
+interpret, and analyze the sound information.</para>
+<para id="id11462792">In addition to visualizing the amplitude of a
+sound wave (electrically) over time, we can also look at the
+frequency content of the sound signal. Simply put, we can use the
+Fast Fourier Transform (FFT) algorithm to look at how much of each
+frequency the sound signal contains. More information on the FFT
+will be provided in the theory section.</para>
+<para id="id11475754">During this exercise, the experimenters will
+use a microphone element to convert a sound wave into an electrical
+signal. This signal will be then digitized using a Low Cost USB DAQ
+device. Finally, the Signal Express application will be used to
+quickly visualize the time domain sound signal as well as compute
+its Fast Fourier Transform for viewing in the frequency
+domain.</para>
+</section>
+<section id="id11453778">
+<title>Pre-Lab Assignment</title>
+<para id="id11480562">1) Find a microphone element datasheet by
+searching the internet for “electret condenser microphone element.”
+Most detailed datasheets should show the frequency response curve
+of the element. This curve shows how much of each sound frequency
+makes it through to the electrical signal produced. What does this
+curve look like for the element you found?</para>
+<para id="id11389930">2) What frequency response would be ideal for
+a microphone element to have? Would a flat curve be advantageous?
+What about a curve that rolls off at 5 Hz? Hint: first determine
+which frequencies are audible to the human ear.</para>
+<para id="id11493117">3) Write a short summary about how the
+electret microphone works. You should be able to find a variety of
+sources online; Wikipedia is a good starting point.</para>
+<para id="id10961721">4) Become familiar with the National
+Instruments USB 6008 and 6009 data acquisition devices. These
+datasheets are available at 
+<link url="http://www.ni.com/">www.ni.com</link>.</para>
+</section>
+<section id="id11477894">
+<title>Theory</title>
+<section id="id11415654">
+<title>Electret Microphone Elements</title>
+<para id="id11481279">One way to convert sound pressure waves into
+an electrical signal is using an electret microphone element. A
+picture of such an element is shown below:</para>
+<figure id="id11395976"><media id="idp63136" alt=""><image src="../../media/Graphic1-2a69.png" mime-type="image/png"/></media>
+<caption> Electret Microphone Element </caption></figure>
+<para id="id11381593">Inside the electret microphone element, a
+dielectric material is made to hold a permanent charge. When the
+element vibrates, the internal capacitance changes and an
+electrical signal is produced. A variety of additional components inside the microphone element act as a small output amplifier.</para>
+</section>
+<section id="id11253805">
+<title>The Fast Fourier Transform (FFT)</title>
+<para id="id11463844">It is very common in science and engineering
+to view a signal’s amplitude vs. time. For example, imagine that a
+doctor is watching a patient’s heartbeat on an electrical device.
+He might see peaks in the heartbeat signal every 1 second if the
+patient’s heart beats 60 times a minute.</para>
+<para id="id11461993">If the doctor wishes to calculate the
+patient’s heart rate (assuming it is perfectly steady), he can try
+to measure the time between successive peaks on the screen (1
+second in this case) and calculate the heart rate from that
+information. However, there is an easier way!</para>
+<para id="id11474472">Any signal (electrical or otherwise) can be
+viewed as a number of sine waves at different frequencies with
+various amplitudes and phase shifts. Simply put, a graph can be
+made that shows amplitude vs frequency instead of amplitude vs
+time. In the doctor’s case above, it would be very convenient for
+him to have a graph of amplitude vs heart rate frequency. If the
+patient’s heart rate is approximately 1 Hz as noted above, then the
+amplitude vs frequency plot should show a peak somewhere near 1 Hz
+as well. Now, the doctor can simply glance at the graph to see the
+heart beat frequency.</para>
+<para id="id11475766">In order to convert a time domain signal such
+as heart rate amplitude vs time into the frequency domain to
+produce a plot such as amplitude vs frequency, the Fourier
+Transform can be used. Several variations of this transform exist,
+including the Fast Fourier Transform (FFT) algorithm that is
+typically used by computers. For the purposes of this exercise, the
+low level mathematical details of the transform will not be needed.
+The experimenter does, however, need to remember the basic
+concept:</para>
+<para id="id11491913">Remember, any signal can be thought of as
+being composed of sine waves, where each frequency of sine wave
+will have a given amplitude and phase shift.</para>
+</section>
+</section>
+
+<section id="id10000000">
+<title>Hardware and Software Required</title>
+<list list-type="enumerated" id="id10000001"><item> 10 Ohm resistor </item>
+<item> 4.7 uF capacitor </item>
+<item> Electret microphone element</item>
+<item> National Instruments Low Cost USB DAQ</item>
+<item> Signal Express software</item></list>
+</section>
+
+<section id="id11450142">
+<title>Laboratory Exercise</title>
+<para id="id11412538">During this exercise, the experimenter will
+acquire a sound signal from an electret microphone element. This
+sound signal will then be converted into the frequency domain using
+the Fast Fourier Transform to produce a chart similar to the
+following:</para>
+<figure id="id11472834"><media id="idm5958048" alt=""><image src="../../media/Graphic2-448e.png" mime-type="image/png"/></media>
+<caption> Frequency Domain Representation of Microphone Signal </caption></figure>
+<para id="id11380531">1) Connect the following circuit to the Low
+Cost USB DAQ as shown. The microphone element can be purchased
+cheaply at Radio Shack, etc. Note that the +5V power supply can be
+obtained directly from the National Instruments USB 6008 or 6009
+devices.</para>
+<figure id="id11483140"><media id="idp1983440" alt=""><image src="../../media/Graphic3-92a7.png" mime-type="image/png"/></media>
+<caption> Electret Microphone Circuit </caption></figure>
+<para id="id11397849">2) Program steps in National Instruments
+Signal Express software to match the sequence below. These steps
+will acquire a sound signal from the circuit constructed above and
+compute the frequency domain representation using the FFT.</para>
+<figure id="id11486266"><media id="idp991248" alt=""><image src="../../media/Graphic4-f7f2.png" mime-type="image/png"/></media>
+<caption> Completed Signal Express Steps </caption></figure>
+<para id="id11132411">3) Drag the acquired time domain sound signal
+as well as the frequency domain (FFT) signal into the data view
+window. Choose “run continuously” within Signal Express to loop the
+sequence.</para>
+<para id="id10573156">4) Try generating various sounds by talking,
+whistling, etc. Make sure that you are close to the microphone
+element. Observe the FFT signal when you whistle different
+notes.</para>
+</section>
+<section id="id11397446">
+<title>Post-Lab Questions</title>
+<para id="id10769182">1) Do research in a textbook or online to
+determine the frequency range that the human voice can produce. Did
+the FFT of your voice / whistling fall within that range?</para>
+<para id="id10504433">2) Imagine you tried to use the electret
+microphone element outside on a windy day. What might happen if
+your tried to record your voice? How does the frequency response of
+the microphone play a factor here?</para>
+<para id="id11472821">3) How can you tell if high frequency noise
+is present in your sound signal without playing it back? Hint:
+think about the concepts discussed in the theory section
+above.</para>
+<para id="id11492411">4) What could be added to the Signal Express
+sequence above in order to attenuate any noise in your sound
+signal? What frequency ranges must remain intact (assuming you are
+attempting to record a human voice)? What frequency ranges do you
+not have to be concerned about at all?</para>
+</section>
+</section>
+</content>
+</document>

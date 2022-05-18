@@ -1,0 +1,145 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>LED Thermometer Lab</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>6f3aefbd-ffe4-4408-a522-9df7bcf18e24</md:uuid>
+</metadata>
+<content>
+<section id="id9460447">
+<title>LED Thermometer Lab Using National Instruments Low Cost Data Acquisition</title>
+<section id="id6203570">
+<title>Introduction</title>
+<para id="id2435240">One common measurement that scientists and
+engineers like to make is temperature. For example, it may be
+necessary to record the temperature of a biology experiment, a heat
+testing chamber for electronics, or a jet engine.</para>
+<para id="id8866305">In order to convert temperature information
+into electrical form, a transducer is needed. A temperature
+transducer is simply a sensor that will allow the user a mechanism
+to detect a temperature change (increasing or decreasing voltage,
+current, resistance, etc).</para>
+<para id="id7377201">During this exercise, the experimenters will
+use the integrated circuit LM34CZ temperature sensor to output a
+linear, temperature dependent voltage. This voltage will be
+digitized by a Low Cost USB DAQ so that measurements can be taken
+on a computer. Finally, a LabVIEW virtual instrument (VI) will be
+created in order to visualize sampled data and control several
+LEDs.</para>
+</section>
+<section id="id8828634">
+<title>Pre-Lab Assignment</title>
+<para id="id9671755">1) Many types of temperature sensors exist,
+including RTDs, thermocouples, thermistors, and ICs. Use any
+resources available (textbooks, the web, etc) to research each type
+of transducer and prepare a short written summary of each.</para>
+<para id="id9313852">2) Find and print the datasheet for the LM34CZ
+temperature sensor using Google. By reading the datasheet, can you
+determine how we will measure temperature with this IC? Write a
+formula relating temperature and sensor output voltage (this should
+be fairly simple).</para>
+<para id="id8756937">3) Suppose we were using the LM35 temperature
+sensor instead. Obtain the datasheet and write a second formula
+relating temperature and sensor output voltage for the LM35.</para>
+<para id="id6577178">4) Become familiar with the National
+Instruments USB 6008 and 6009 data acquisition devices. These
+datasheets are available at 
+<link url="http://www.ni.com/">www.ni.com</link>.</para>
+</section>
+<section id="id6454252">
+<title>Theory</title>
+<para id="id6369672">One method to measure temperature involves
+using an integrated circuit transducer such as the LM34CZ. This IC
+will generate a voltage that is linearly proportional to the
+measured temperature. Compared to other measurement methods, ICs
+provide an extremely linear output with very little error. They are
+also one of the simplest temperature sensors to connect and
+use.</para>
+<para id="id6230157">Below are several views of the LM34CZ in a
+TO-92 package:</para>
+<figure id="id6494374"><subfigure id="subfig1">
+<media id="idm2797952" alt=""><image src="../../media/Graphic1-2f55.png" mime-type="image/png"/></media>
+<caption> LM34CZ Sensor </caption>
+</subfigure>
+<subfigure id="subfig2">
+<media id="idm9135904" alt=""><image src="../../media/Graphic2-8cb4.png" mime-type="image/png"/></media>
+<caption> Sensor Pinout </caption>
+</subfigure></figure>
+
+<para id="id9702859">As the experimenter can see, the LM34CZ is a
+three-terminal device. Two pins are used for power (+Vs and GND),
+while the third pin is used to output a temperature dependent
+voltage.</para>
+<para id="id9469937">Since the LM34CZ outputs a voltage that is
+linearly dependent with temperature, it is easy to compute measured
+temperature from sensor output voltage or vice versa. In fact, the
+LM34CZ ideally outputs exactly 10mV / deg F.</para>
+<figure id="id9711225"><media id="idm8249680" alt=""><image src="../../media/Graphic3-4ded.png" mime-type="image/png"/></media>
+<caption> Temperature - Voltage Relationship </caption></figure>
+<para id="id9709710">To visualize this relationship, a graph sensor
+output voltage vs. temperature can be plotted using LabVIEW:</para>
+<figure id="id9636641"><media id="idm125872" alt=""><image src="../../media/Graphic4-cf64.png" mime-type="image/png"/></media>
+<caption> Output Voltage Vs. Temperature Data </caption></figure>
+</section>
+
+<section id="id10000000">
+<title>Hardware and Software Required</title>
+<list list-type="enumerated" id="id10000001"><item> (4) red LEDs </item>
+<item> (4) 220 Ohm resistors </item>
+<item> LM34CZ temperature sensor IC</item>
+<item> National Instruments Low Cost USB DAQ</item>
+<item> LabVIEW 8.20 software (LabVIEW 7.1 or 8.0 will work as well)</item>
+</list>
+</section>
+
+<section id="id7407409">
+<title>Laboratory Exercise</title>
+<para id="id6473576">During this exercise, the experimenter will
+construct an LED thermometer that resembles the following:</para>
+<figure id="id9744560"><media id="idm2406688" alt=""><image src="../../media/Graphic5-5663.png" mime-type="image/png"/></media>
+<caption> LED Thermometer Front Panel in LabVIEW </caption></figure>
+<para id="id7402027">1) In order to create the LED thermometer
+output, Connect LEDs and resistors to the digital output lines of
+the Low Cost USB DAQ as shown below. Each LED will be programmed to
+light up when the temperature exceeds a certain threshold.</para>
+<figure id="id2739577"><media id="idm9332880" alt=""><image src="../../media/Graphic6-9e0b.png" mime-type="image/png"/></media>
+<caption> LED Connection Schematic </caption></figure>
+<para id="id9461801">2) To measure the temperature, connect the
+LM34CZ IC to the Low Cost USB DAQ as shown below. Note that the +5V
+supply needed by the IC can be obtained directly from the National
+Instruments USB 6008 or 6009.</para>
+<figure id="id3485905"><media id="idm1174288" alt=""><image src="../../media/Graphic7.png" mime-type="image/png"/></media>
+<caption> Temperature Sensor Schematic </caption></figure>
+<para id="id9595664">3) Using the DAQ Assistant Express VI, create
+the following LabVIEW block diagram. In this virtual instrument
+(VI), temperature data is acquired using the Low Cost USB DAQ,
+scaled, and displayed on a chart. The temperature measurement is
+also compared with several thresholds. Once the temperature exceeds
+each threshold, a corresponding physical LED and front panel LED
+will light up.</para>
+<figure id="id9725749"><media id="idm2810528" alt=""><image src="../../media/Graphic8.png" mime-type="image/png"/></media>
+<caption> LED Thermometer Block Diagram in LabVIEW </caption></figure>
+<para id="id6186846">4) Run the VI and adjust the threshold levels
+so that several LEDs light up. Warm up the temperature sensor by
+squeezing it with your fingers and observe the rise in measured
+temperature on the front panel chart. You have now succeeded in
+creating an LED thermometer!</para>
+</section>
+<section id="id9606055">
+<title>Post-Lab Questions</title>
+<para id="id9616207">1) Did the measured temperature levels match
+what you expected? If the temperature is warmer or cooler than you
+expected, elaborate on possible sources of error.</para>
+<para id="id8859150">2) Look at the LED Thermometer VI created
+above, and determine how often temperature measurements are being
+taken. Why wouldn’t you want to take room temperature measurements
+at a faster rate such as 1 MHz?</para>
+<para id="id8648852">3) If you were incorporating the LM34CZ
+temperature sensor into a shipping product, what would you do to
+calibrate the sensor? Outline the process you would go through to
+make your temperature measurements more accurate.</para>
+<para id="id9829767">4) How could you modify the LabVIEW virtual
+instrument above to output a Centigrade or Farenheit temperature
+depending on user input? Assume you are using the same LM34CZ
+temperature sensor.</para>
+</section>
+</section>
+</content>
+</document>

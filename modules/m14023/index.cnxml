@@ -1,0 +1,160 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>Sound Recorder Lab</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>4b759401-7efa-42de-9510-82d72cb8380e</md:uuid>
+</metadata>
+<content>
+<section id="id21247291">
+<title>Sound Recorder Using National Instruments Low Cost Data
+Acquisition</title>
+<section id="id24542450">
+<title>Introduction</title>
+<para id="id24602428">Any signal, including a sound wave, can be
+thought of as the sum of different frequency sine waves (where each
+frequency wave has a specific amplitude and phase angle). In
+addition to the frequencies we expect to see in a signal, some
+undesirable frequencies may also be present.</para>
+<para id="id22738450">Filters allow us to select which frequencies
+we care about, and discard certain frequencies that are undesirable
+(such as noise). Various types of filters exist including low-pass,
+high-pass, band-pass, etc. There are also many different ways of
+constructing each filter type with each filter implementation
+having its own specific characteristics. More information on
+filters will be provided in the theory section.</para>
+<para id="id10630170">In this exercise, the experimenters will use
+a microphone element to convert a sound wave into an electrical
+signal. This signal will then be digitized using a Low Cost USB DAQ
+device. Finally, a LabVIEW application will be constructed to
+filter undesired frequencies from the signal and play the clarified
+signal back.</para>
+</section>
+<section id="id24645920">
+<title>Pre-Lab Assignment</title>
+<para id="id24561465">1) In your own words, describe what an ideal
+band-pass filter transfer function would look like. You may
+research this by searching for “ideal band pass filter” in google,
+or using a textbook.</para>
+<para id="id21209021">2) When filtering an audio signal, what
+frequencies must be preserved? Do some research to determine the
+frequency range produced by the human voice, and the audible range
+of the human ear.</para>
+<para id="id20258697">3) Elaborate on some possible sources of
+undesirable frequencies in a signal. Where does signal noise come
+from?</para>
+<para id="id17695884">4) Become familiar with the National
+Instruments USB 6008 and 6009 data acquisition devices. These
+datasheets are available at 
+<link url="http://www.ni.com/">www.ni.com</link>.</para>
+</section>
+<section id="id8170671">
+<title>Theory</title>
+<section id="id24677261">
+<title>Electret Microphone Elements</title>
+<para id="id23705617">One way to convert sound pressure waves into
+an electrical signal is using an electret microphone element. A
+picture of such an element is shown below:</para>
+<figure id="id24653422"><media id="idm2553184" alt=""><image src="../../media/Graphic1-2a69.png" mime-type="image/png"/></media>
+<caption> Electret Microphone Element </caption></figure>
+<para id="id24614506">Inside the electret microphone element, a
+dielectric material is made to hold a permanent charge. When the
+element vibrates, the internal capacitance changes and an
+electrical signal is produced. A variety of additional components
+complete the microphone element circuitry by adding a small
+amplifier to the output.</para>
+</section>
+<section id="id21038784">
+<title>Band Pass Filters</title>
+<para id="id23858089">The Fourier Transform tells us that it is
+possible to think of any signal as being composed of various
+frequency sine waves (with each frequency having an associated
+amplitude and phase angle)</para>
+<para id="id24644813">Imagine that you have just used a microphone
+to convert a sound wave into an electrical signal. If the sound
+wave consisted only of a human voice, then only the frequencies
+that human vocal chords can produce should be present. Therefore,
+the overall signal should roughly be composed of frequencies
+between 80 Hz and 1.2 kHz.</para>
+<para id="id20304362">Unfortunately, when playing back your audio
+signal, you may find that it does not sound very good! Perhaps the
+lights in your room added some 60 Hz electrical noise to the signal
+that shouldn’t have been there. Maybe the wind was blowing on your
+microphone, causing the signal acquired to be fuzzy-sounding. There
+are an enormous number of factors that could affect your sound
+signal.</para>
+<para id="id22131990">Using a filter can help clarify the signal so
+that it sounds clear once again. Since you know that any frequencies
+outside of the 80 Hz – 1.2 kHz range are obviously noise, you can
+attempt to attenuate these frequencies as much as possible.
+Specifically, a band-pass filter can be used to accomplish this
+objective.</para>
+<para id="id24614554">An ideal band-pass filter will completely
+attenuate any signals outside of a desired range (known as the
+passband). In the real world, it is impossible to construct an
+ideal filter, but with a large enough circuit or complex digital
+filtering it is possible to obtain a fairly sharp cutoff.</para>
+<para id="id24653942">Remember, all filtering is essentially
+“frequency selection”. By filtering a signal, we are attempting to
+“choose” which frequency components can pass through and which we
+want to discard.</para>
+</section>
+</section>
+<section id="id24653947">
+<title>Hardware and Software Required</title>
+<para id="id24614585">1. 10 Ohm resistor</para>
+<para id="id11763617">2. 4.7 uF capacitor</para>
+<para id="id24653185">3. Electret microphone element</para>
+<para id="id19382250">4. National Instruments Low Cost USB
+DAQ</para>
+<para id="id19382254">5. LabVIEW 8.2 software (LabVIEW 8.0 will
+work as well)</para>
+</section>
+<section id="id24645737">
+<title>Laboratory Exercise</title>
+<para id="id24653368">During this exercise, the experimenter will
+acquire a sound signal from an electret microphone element. This
+sound signal will then be run through an optional band-pass filter
+and played back using speakers.</para>
+<para id="id11000158">When completed, the completed sound recorder
+front panel will resemble the following:</para>
+<figure id="id20258659"><media id="idm1785280" alt=""><image src="../../media/Graphic2-11fc.png" mime-type="image/png"/></media>
+<caption> Completed Sound Recorder Front Panel in LabVIEW </caption></figure>
+<para id="id19105009">1) Connect the following circuit to the Low
+Cost USB DAQ as shown. The microphone element can be purchased
+cheaply at Radio Shack, etc. Note that the +5V power supply can be
+obtained directly from the National Instruments USB 6008 or 6009
+devices.</para>
+<figure id="id17915087"><media id="idp345200" alt=""><image src="../../media/Graphic3-92a7.png" mime-type="image/png"/></media>
+<caption> Electret Microphone Circuit </caption></figure>
+<para id="id24622028">2) Using an event structure in LabVIEW,
+replicate the following block diagram for the “playback” event.
+Note that the “Bandpass Filter” Boolean control allows the user to
+play back the filtered or original signal.</para>
+<figure id="id24653448"><media id="idm8837808" alt=""><image src="../../media/Graphic4-681f.png" mime-type="image/png"/></media>
+<caption> Sound Recorder Block Diagram Showing Playback Event </caption></figure>
+<para id="id21106189">3) Using the DAQ Assistant Express VI,
+complete the block diagram for the “record” event as indicated
+below:</para>
+<figure id="id24653970"><media id="idp376768" alt=""><image src="../../media/Graphic5-9b74.png" mime-type="image/png"/></media>
+<caption> Sound Recorder Block Diagram Showing Record Event </caption></figure>
+<para id="id24645827">4) Experiment with the sound recorder VI by
+recording a simple voice message. Attempt to play back both the
+original and filtered signals. Modify the filter cut-off
+frequencies and see how narrow you can make the passband before the
+played back signal is difficult to decipher.</para>
+</section>
+<section id="id24644829">
+<title>Post-Lab Questions</title>
+<para id="id24749182">1) What sample rate did you use when
+recording your sound signal? Explain why you chose this rate and
+what issues could occur with too low or high of a sample
+rate.</para>
+<para id="id24749185">2) Could you have used any other filter types
+to clarify the sound signal? Would a low-pass, high-pass, or other
+filter have accomplished the same objective?</para>
+<para id="id24653161">3) How can you tell if high frequency noise
+is present in your sound signal without playing it back? Before
+filtering the signal, how could you have determined what
+frequencies the signal contained?</para>
+</section>
+</section>
+</content>
+</document>

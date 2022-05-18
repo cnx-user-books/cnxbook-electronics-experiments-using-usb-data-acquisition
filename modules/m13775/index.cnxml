@@ -1,0 +1,128 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>IR Remote Control Lab</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>2521354e-4b36-4f4d-9c6c-af4bb702fa51</md:uuid>
+</metadata>
+<content>
+<section id="id5040220">
+<title>IR Remote Control Using National Instruments Low Cost Data
+Acquisition</title>
+<section id="id5051971">
+<title>Introduction</title>
+<para id="id5054184">Have you ever wondered how a typical remote
+control works? When the user presses a button on the remote, an
+infrared signal is transmitted across the room and detected by a
+sensor called a photodetector. You will create a remote control of
+your own in this exercise.</para>
+<para id="id5053310">In this lab, you will use a
+standard universal remote control to transmit an infrared signal
+several feet. A detection circuit will then be constructed using a
+specific type of photoreceiver known as a photodiode. Next, a <link url="http://digital.ni.com/express.nsf/bycode/ex4v7m">Low
+Cost USB DAQ device</link> will be used to digitize the infrared signal.
+Finally, this digitized signal will be analyzed using LabVIEW
+software to control the popular iTunes application with the help of
+ActiveX controls.</para>
+</section>
+<section id="id5052700">
+<title>Pre-Lab Assignment</title>
+<para id="id5052709">1) Why can’t humans see the infrared light
+coming out of a remote control? Look online or in a textbook to
+find the wavelengths of the visible light spectrum as well as the
+wavelengths of the infrared light spectrum.</para>
+<para id="id5050913">2) Write a short summary about how the
+photodiode works. You should be able to find a variety of sources
+online; cite them in your response.</para>
+<para id="id5050923">3) Search Google for “infrared photodiode
+datasheet” and see what you can find. What specifications are
+common for photodiodes? Verify that the photodiode detection range
+is within the infrared spectrum.</para>
+<para id="id5051904">4) To generate the infrared signal, your
+remote control contains an infrared LED. Find an infrared LED
+datasheet online. What specifications do you see? Verify that the
+infrared LED emission range is within the infrared spectrum.</para>
+<para id="id5051916">5) Become familiar with the National
+Instruments USB 6008 and 6009 data acquisition devices. These
+datasheets are available at 
+<link url="http://www.ni.com/">www.ni.com</link>.</para>
+</section>
+<section id="id5053926">
+<title>Theory</title>
+<para id="id5053956">Infrared signals are very similar to visible
+light, except they occupy a section of the electromagnetic spectrum
+that makes them invisible to the human eye. In scientific terms,
+the infrared spectrum contains wavelengths ranging from
+approximately 1.0 mm to 0.7 um. It is convenient to use infrared
+signals for remote control transmission, because their reception is
+not strongly affected by the amount of ambient light present at the
+photodetector.</para>
+<para id="id5052582">One common method of converting an infrared
+remote control signal (0.7 – 0.9 um wavelength) into an electrical
+signal is using an infrared photodiode. In addition, another method
+is using a phototransistor. For this laboratory exercise, we will
+focus on an infrared photodiode transducer similar to the one shown
+below:</para>
+<figure id="id5052758"><media id="idm10724704" alt=""><image src="../../media/Graphic1-4383.png" mime-type="image/png"/></media>
+<caption> Infrared Photodiode </caption></figure>
+<para id="id5050668">When used in a circuit, the photodiode will be
+reverse biased and, as with an ordinary diode, no current will
+flow. However, any incident infrared light will cause electron-hole
+pairs to form in the photodiode semiconductor, and thus a current
+will flow. In this way, an infrared signal can be converted to an
+electrical one.</para>
+</section>
+
+<section id="id10000000">
+<title>Hardware and Software Required</title>
+<list list-type="enumerated" id="id10000001"><item> Infrared photodiode </item>
+<item> 100 kOhm resistor </item>
+<item> Remote control (any infrared device should work)</item>
+<item> <link url="http://digital.ni.com/express.nsf/bycode/ex4v7m">National Instruments Low Cost USB DAQ</link></item>
+<item> <link url="http://www.ni.com/labview">LabVIEW 8.20 software (LabVIEW 8.0 will work as well)</link></item>
+<item> iTunes software </item>
+</list>
+</section>
+
+<section id="id5050732">
+<title>Laboratory Exercise</title>
+<para id="id5050748">In this exercise, infrared data will be acquired from a photodiode and then digitized using a Low Cost USB DAQ device. Once the infrared signal exceeds a
+given threshold (meaning that a remote control button is being
+pressed), LabVIEW will send an ActiveX command to make iTunes play
+a song. Holding down a remote control button will result in iTunes
+skipping to the next song in the current playlist. When finished,
+the LabVIEW front panel will resemble the following:</para>
+<figure id="id5052306"><media id="idm994240" alt=""><image src="../../media/Graphic2-f31c.png" mime-type="image/png"/></media>
+<caption> IR Remote Control Front Panel in LabVIEW </caption></figure>
+<para id="id5052338">1) Connect the following circuit to the Low
+Cost USB DAQ as shown. The photodiode can be purchased cheaply at
+Radio Shack, etc. Note that the +5V power supply can be obtained
+directly from the National Instruments USB 6008 or 6009
+devices.</para>
+<figure id="id5052353"><media id="idm9472784" alt=""><image src="../../media/Graphic3-7b66.png" mime-type="image/png"/></media>
+<caption> IR Receiver Schematic </caption></figure>
+<para id="id5052380">2) Using the DAQ Assistant and Acquire Sound
+Express VIs, create the following LabVIEW block diagram. Note that
+the false case of the outer case structure simply passes through
+the ActiveX automation refnum.</para>
+<figure id="id5052391"><media id="idm11021728" alt=""><image src="../../media/Graphic4-a2b6.png" mime-type="image/png"/></media>
+<caption> IR Remote Control Block Diagram in LabVIEW </caption></figure>
+<para id="id5052423">3) Run the VI and use any infrared remote
+control to test your application. Pressing a button quickly on the
+remote control should cause iTunes to play/pause the current song
+(iTunes will first open if currently closed). Holding down a remote
+control button should cause iTunes to play the next song in the
+current playlist.</para><para id="element-608">4) Experiment to find out how far away you can use your remote control before the infrared receiver no longer works. Try adjusting the detection threshold to maximize transmission distance without false positives.</para><para id="element-719">5) Though infrared photodiodes are not very
+responsive to visible light, the signal produced could be slightly
+affected by the ambient light in your room. Try operating the
+circuit in different lighting conditions and note how the signal
+level changes.</para>
+</section>
+<section id="id5052434">
+<title>Post-Lab Questions</title>
+<para id="id5052445">1) What could be done to increase the working distance of your remote control receiver? Would you implement changes in hardware or software?</para>
+<para id="id5052456">2) As mentioned earlier, a phototransistor could have been used instead of a photodiode to receive infrared signals. Reasearch some advantages and drawbacks of using each kind of device. Which do you think would work best? Which sensor costs the most?</para>
+<para id="id5052468">3) Experiment with the ActiveX VIs in LabVIEW and see
+what other applications you can control. How could you
+make a PowerPoint slideshow advance when an infrared signal is received by your detection circuit?</para>
+</section>
+</section>
+</content>
+</document>

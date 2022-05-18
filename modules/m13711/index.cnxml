@@ -1,0 +1,136 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>Diode IV Sweep Lab</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>c7659a82-7982-4e49-a58d-829eac42a532</md:uuid>
+</metadata>
+<content>
+<section id="id13729416">
+<title>Diode IV Sweep Using National Instruments Low Cost Data
+Acquisition</title>
+<section id="id10613128">
+<title>Introduction</title>
+<para id="id9283942">The diode is a basic circuit element that
+possesses nonlinear IV characteristics. In contrast to a simple
+resistor, doubling diode current does not necessarily double the
+voltage across the diode. In order to visualize this nonlinear
+relationship, it is common to plot diode current vs. voltage on a
+2D graph. This graph can also be used at a later point to perform
+“load line” calculations on circuits with diodes.</para>
+<para id="id13667547">In this exercise, the experimenter will
+construct a simple circuit to measure the IV characteristic of a
+diode. The Low Cost USB DAQ will be used as a programmable voltage
+source as well as an analog measurement device. The experimental
+data collected can be compared to expected theoretical data to draw
+conclusions regarding measurement noise, model shortcomings, and
+data acquisition.</para>
+</section>
+<section id="id13145574">
+<title>Pre-Lab Assignment</title>
+<list list-type="enumerated" id="id8364332"><item>Research the exponential diode model using textbooks, the
+internet, or any other source. This model is more commonly referred
+to as the “ideal diode model”. What other diode models can you
+find?</item>
+
+<item>What formula(s) can you find relating diode current and
+voltage? Note that the exponential, or “ideal diode model” should
+have an exponential term.</item>
+
+<item>Search Google for “Phillips 1N914” and open up the pdf
+datasheet. Find the graph of diode forward current vs voltage and
+note your observations. Does the forward IV curve look exponential?
+How does the reverse IV curve look?</item>
+
+<item>Use a simulation package such as Multisim to obtain the IV characteristic of a simulated
+diode. Do this by sweeping either the diode current or voltage, and
+measuring the other quantity.</item>
+
+<item>Become familiar with the National Instruments USB 6008 and
+6009 data acquisition devices. These datasheets are available on 
+<link url="http://www.ni.com/">www.ni.com</link>.</item>
+</list>
+</section>
+<section id="id9284405">
+<title>Theory</title>
+<para id="id12995467">One commonly used method of modeling a diode
+is the “ideal diode model”. Using this model, diode voltage and
+current are related according to the following formula:</para>
+<para id="id13799628">
+<figure id="id16078577"><media id="idp255152" alt=""><image src="../../media/Graphic1-e233.png" mime-type="image/png"/></media>
+
+<caption> Ideal Diode Model</caption></figure>
+</para>
+<para id="id6250543">Since Is is typically very small (1E-12), this
+equation is commonly simplified to:</para>
+<para id="id13105857">
+<figure id="id16236109"><media id="idm1449952" alt=""><image src="../../media/Graphic2-78ab.png" mime-type="image/png"/></media>
+
+<caption> Simplfied Diode Model Equation</caption></figure>
+</para>
+<para id="id15751796">Note that in the formula, Is stands for the
+saturation current which is around 1E-12 A, and Vt is a temperature
+dependent constant equal to 0.0259 V at 300 degrees K. Id and Vd represent diode current and voltage respectively.</para>
+<para id="id3338890">Therefore, a theoretical diode IV curve can
+be plotted using LabVIEW:</para>
+<figure id="id15712454"><media id="idm6757968" alt=""><image src="../../media/Graphic3-6d3c.png" mime-type="image/png"/></media>
+
+<caption> IV Curve plotted using LabVIEW </caption></figure>
+</section>
+
+<section id="id10000000">
+<title>Hardware and Software Required</title>
+<list list-type="enumerated" id="id10000001"><item> 10 Ohm resistor </item>
+<item> Diode </item>
+<item> National Instruments Low Cost USB DAQ</item>
+<item> LabVIEW 8.20 software (LabVIEW 7.1 or 8.0 will work as well)</item>
+</list>
+</section>
+
+<section id="id15811440">
+<title>Labratory Procedure</title>
+<para id="id15909162">1) Construct the following circuit and
+connect to the USB 6008/6009. By outputting a certain voltage at AO 0 and measuring the
+voltage at AI 3+, the experimenter can obtain a data point
+containing diode voltage and current. The diode voltage is simply
+the voltage at node AI 3+, and the diode current is identical to
+the resistor current (Ohm’s Law).</para>
+
+<para id="id15875554"><figure id="id9854210"><media id="idm7881488" alt=""><image src="../../media/Graphic4-b598.png" mime-type="image/png"/></media>
+<caption> Circuit for Measuring Diode IV Curve </caption></figure></para>
+
+<para id="id13573242">2) Use a DMM to measure the actual resistance
+used for R1 in the circuit above (take R1 out of the circuit for measurement). This will help to obtain a more
+accurate current reading.</para>
+<para id="id15964969">3) Using the DAQ Assistant Express VI,
+construct the following LabVIEW block diagram. Note that the user
+will be able to select the number of IV data points to collect, as
+well as the ending sweep voltage for AO 0. Select this voltage low
+enough to ensure that resistor R1 does not exceed its power
+specification.</para>
+<para id="id16236168">
+
+<figure id="id5898757"><media id="idm579840" alt=""><image src="../../media/Graphic6-df50.png" mime-type="image/png"/></media> <caption> LabVIEW Block Diagram Used to Measure Diode IV Curve </caption></figure>
+</para>
+<para id="id8189617">4) Run the VI several times using different
+values for the number of data points and sweep ending voltage.
+Record your observations and print out three diode IV curves with
+different numbers of data points.</para>
+</section>
+<section id="id7409138">
+<title>Post-Lab Questions</title>
+<list list-type="enumerated" id="id13638840"><item>Did the measured diode characteristic curve closely resemble
+what you expected? How closely did this curve match the datasheet,
+simulation, and theoretical data you researched earlier?</item>
+<item>The measured IV curve may have contained some noise.
+Elaborate on some possible sources of this noise (think about your
+surroundings). Can you think of a way to eliminate some of the
+undesired noise from the signal? Would you do this in hardware or
+software?</item>
+<item>What real-world situations would require a designer to measure the diode
+characteristic curve?</item>
+<item> What quantities could you measure for a bipolar junction transistor (BJT) using the low cost USB
+acquisition device? Explain how you would make your measurements.</item>
+</list>
+
+</section>
+</section>
+</content>
+</document>

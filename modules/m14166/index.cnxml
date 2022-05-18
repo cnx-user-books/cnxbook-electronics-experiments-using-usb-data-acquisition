@@ -1,0 +1,142 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>Student Scope Using NI USB Data Acquisition</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>8b90371b-f8af-42ff-adc6-375f3d7fcc1a</md:uuid>
+</metadata>
+<content>
+<section id="id3275026">
+<title>LabVIEW Student Scope Using the NI USB Data
+Acquisition</title>
+<para id="id4027285">The StudentScope is a software oscilloscope
+specifically designed to work with the <link url="http://digital.ni.com/express.nsf/bycode/ex4v7m">National Instruments
+USB-6009 data acquisition device</link>. To simulate the functionality of
+a scope, the StudentScope acquires analog input data across two
+channels and then searches for a user-specified trigger level. This
+allows periodic waveforms to be lined up and displayed as standing
+waves. Controls to scale signals, apply vertical offsets, adjust
+the timebase, and measure phase offsets are all meant to function
+similarly to a benchtop oscilloscope. Several expanded features are
+also available, including a option to log data to an
+Excel-compatible spreadsheet file or to export a screenshot to a
+printable HTML report.</para>
+<figure id="id4124233"><media id="idm523920" alt=""><image src="../../media/Studentscope.jpg" mime-type="image/jpeg"/></media>
+<caption>StudentScope Front Panel</caption>
+</figure>
+<section id="id4026310">
+<title>Download the StudentScope</title>
+<para id="element-340">The StudentScope source code can be downloaded here:
+ <link resource="studentscope.zip">StudentScope Source (1.0)</link>.   The StudentScope source requires:  <link url="http://digital.ni.com/demo.nsf/websearch/14f9ce475127ade786256ac60070926c">LabVIEW</link> 8.0 or later, and 
+
+<link url="http://digital.ni.com/softlib.nsf/websearch/11D505B7B355EBD68625722D006A6B97">NI DAQmx</link> 8.0 or later.</para><para id="element-13">The StudentScope stand-alone executable can be downloaded here:
+ <link resource="studentscope_exe.zip">StudentScope.exe (1.0)</link>.   The StudentScope executable requires:  <link url="ftp://ftp.ni.com/pub/devzone/tut/cnx_lv8_runtime.exe">LabVIEW RunTime Engine 8.0</link>, and 
+
+<link url="http://digital.ni.com/softlib.nsf/websearch/11D505B7B355EBD68625722D006A6B97">NI DAQmx</link> 8.0 or later.  You must extract all files from the zip distribution before attempting to use the source or executable versions of this application.  </para></section>
+
+
+
+<section id="id4026319">
+<title>Getting Started</title>
+<para id="id4060472">First, be sure you have the LabVIEW Run-Time
+Engine version 8.0 and the DAQmx driver version 8.0 or later
+installed under the default installation options. Both can be
+downloaded free of charge from ni.com. The installer included with
+the Student Scope includes the LabVIEW Run-Time Engine, but DAQmx
+must be downloaded separately. Next, connect your <link url="http://digital.ni.com/express.nsf/bycode/ex4v7m"> National
+Instruments USB-6009</link> to your PC. Windows should detect the device
+and configure the appropriate driver. If this is the first time
+that a USB-6009 device is installed on your computer, you might be
+prompted to install a USB-6xxx Firmware Loader. Please complete the
+Windows Hardware Wizard prompts to completely install this
+device.</para>
+<para id="id4096268">To run the StudentScope, you will need to
+determine the device number of your USB-6009, which is how the
+hardware is identified by the scope software. Find this by opening
+National Instruments Measurement and Automation Explorer (MAX). In
+MAX, expand Devices and Interfaces. Then expand NI-DAQmx Devices.
+If the DAQmx driver is installed properly, and the USB-6009 is
+connected, you will see an item such as USB-6009: "Dev1" where Dev1
+indicates device # 1. Make a note of the device number.</para>
+<para id="id3348825">When you run the StudentScope, you will need
+to select the correct device number. If the wrong device number is
+selected, you will receive an error message. To fix this, be sure
+the USB-6009 plugged in, select the correct device number, and
+press the reset button.</para>
+</section>
+<section id="id3348829">
+<title>Hardware Connections</title>
+<para id="id4125989">Connect input signals to differential channels
+0 and 1 on the USB-6009. Terminals 2 and 3 on the 6009 correspond
+to the positive and negative inputs for differential channel 0.
+Terminals 5 and 6 the 6009 correspond to the positive and negative
+inputs for differential channel 1. For more information on
+terminals and connections, consult the help manual for the
+device.</para>
+</section>
+<section id="id4021270">
+<title>Controls</title>
+<para id="id3764749">The following controls on the StudentScope
+front panel are used to control the behavior of the scope. The
+controls are modeled after a traditional benchtop
+oscilloscope.</para>
+<list list-type="bulleted" id="id3772772">
+<item>Device: Specifies the Device Number of the 6009, which
+uniquely identifies the hardware. This number can be found in
+Measurement and Automation Explorer (MAX). If you adjust this
+input, you will have to press reset for the changes to take
+effect.</item>
+<item>Channels: Specifies the number of channels to scan. By
+acquiring only a single channel of data, twice the sampling rate
+can be achieved over acquiring two channels of data. If you adjust
+this input, you will have to press reset for the changes to take
+effect.</item>
+<item>Input Voltage Range: Sets the internal programmable gain
+amplifier on the 6009. This applies an appropriate analog gain to
+the signal prior to digitization. For best results, choose the
+smallest range setting that completely encapsulates the expected
+signal. If you adjust this input, you will have to press reset for
+the changes to take effect.</item>
+<item>Reset: If Device, Channels, or Input Voltage Range values are
+changed, the StudentScope needs to be reset for the changes to take
+effect.</item>
+<item>Display On: Toggles the visibility of each channel's trace.
+Note: This does not change whether or not the data is actually
+being acquired by the USB-6009; it merely allows the user to turn
+on or off the display of that data.</item>
+<item>Offset: Adjusts the vertical position of the trace on the
+display by adding or subtracting a voltage offset.</item>
+<item>Zero: Removes any offsets added with the Offset knob.</item>
+<item>Center: Automatically adjusts the Offset knob so that the
+waveform is centered vertically on the display.</item>
+<item>Scale: Sets the Volts per division along the vertical axis in
+order to "zoom" vertically.</item>
+<item>Timebase: Sets the time per division along the horizontal
+axis in order to "zoom" horizontally. This does not change the rate
+of acquisition of the hardware.</item>
+<item>Trigger Channel: Specifies which channel will generate the
+trigger.</item>
+<item>Edge: Toggles between triggering off of a rising or falling
+edge of the signal.</item>
+<item>Level: Specifies the voltage level at which a trigger will be
+generated. Note: If the level is never crossed by the periodic
+signal, the trigger will not work properly and the waveform will
+not display correctly. Also, the trigger is defined in software,
+and will only correctly display periodic signals with a period of
+less than 1/8 second.</item>
+<item>Cursors (On/Off): Toggles display of the cursors on or
+off.</item>
+<item>Lock Cursors: Toggles whether cursors are free-floating or
+locked to a channel trace. If cursors are free floating, the
+voltage level at each cursor will not be displayed.</item>
+<item>C1: If Lock Cursors is toggle on, this selects the channel to
+which Cursor 1 is locked.</item>
+<item>C2: If Lock Cursors is toggle on, this selects the channel to
+which Cursor 2 is locked.</item>
+<item>X Axis Scroll: Adjusts the center frequency of the Spectrum
+Analyzer. Page Up and Page Down can fine tune this control left and
+right.</item>
+<item>X Axis Zoom: Adjusts the min and max range of the X axis of
+the Spectrum Analyzer.</item>
+</list>
+</section>
+</section>
+</content>
+</document>
